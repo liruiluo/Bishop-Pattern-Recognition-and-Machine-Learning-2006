@@ -1,0 +1,57 @@
+# Bishop Pattern Recognition and Machine Learning - 主配置文件
+# 这个配置文件使用Hydra框架管理所有章节的运行参数
+
+defaults:
+  - _self_
+  - chapter: chapter01  # 默认运行第1章
+
+# 全局配置
+general:
+  seed: 42  # 随机种子，确保可重复性
+  output_dir: outputs  # 输出目录
+  figure_dir: ${general.output_dir}/figures  # 图片保存目录
+  verbose: true  # 是否输出详细信息
+  
+# 可视化配置
+visualization:
+  figure_size: [10, 6]  # 图片尺寸
+  dpi: 100  # 分辨率
+  style: seaborn-v0_8  # matplotlib样式
+  show_plots: true  # 是否显示图片
+  save_plots: true  # 是否保存图片
+  
+# 数值计算配置  
+computation:
+  precision: float64  # 数值精度
+  max_iterations: 1000  # 最大迭代次数
+  tolerance: 1e-6  # 收敛容忍度
+
+# Hydra配置
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: outputs/multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  help:
+    template: |
+      Bishop PRML 教学代码实现
+      ======================
+      
+      使用方法:
+        uv run python main.py chapter=chapter01
+        
+      可用章节:
+        - chapter01: 引言
+        - chapter02: 概率分布
+        - chapter03: 线性回归模型
+        - chapter04: 线性分类模型
+        - chapter05: 神经网络
+        - chapter06: 核方法
+        - chapter07: 稀疏核机器
+        - chapter08: 图模型
+        - chapter09: 混合模型和EM算法
+        - chapter10: 近似推断
+        - chapter11: 采样方法
+        - chapter12: 连续潜变量
+        - chapter13: 序列数据
+        - chapter14: 组合模型

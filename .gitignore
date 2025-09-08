@@ -1,0 +1,108 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+.Python
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Hydra outputs
+outputs/
+multirun/
+.hydra/
+
+# Data and models
+*.pkl
+*.pth
+*.h5
+*.hdf5
+*.npy
+*.npz
+data/
+models/
+checkpoints/
+*.csv
+*.parquet
+
+# Logs
+*.log
+logs/
+*.out
+*.err
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+*.cover
+.coverage.*
+
+# Documentation
+docs/_build/
+site/
+*.rst~
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Package manager
+uv.lock.bak
+poetry.lock
+Pipfile.lock
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+
+# PDF (保留教材PDF)
+# *.pdf
