@@ -1,0 +1,152 @@
+# Chapter 8: Graphical Models 图模型
+# 本章介绍概率图模型的理论基础
+
+name: "Graphical Models"
+
+# 8.1 贝叶斯网络
+bayesian_networks:
+  # 有向图表示
+  directed_graphs:
+    - "节点表示随机变量"
+    - "有向边表示条件依赖"
+    - "无环图(DAG)"
+    
+  # 条件独立性
+  conditional_independence:
+    d_separation: true  # d-分离准则
+    markov_blanket: true  # 马尔可夫毯
+    
+  # 因子分解
+  factorization:
+    formula: "p(x) = Π p(x_i|pa(x_i))"
+    
+  # 常见模型
+  examples:
+    - "朴素贝叶斯"
+    - "隐马尔可夫模型"
+    - "卡尔曼滤波器"
+
+# 8.2 条件独立性
+conditional_independence:
+  # 三种基本结构
+  structures:
+    head_to_tail:
+      name: "头到尾"
+      independence: "X⊥Z|Y"
+      
+    tail_to_tail:
+      name: "尾到尾"
+      independence: "X⊥Y|Z"
+      
+    head_to_head:
+      name: "头到头(V结构)"
+      independence: "X⊥Y (when Z unobserved)"
+      
+  # d-分离
+  d_separation:
+    definition: "判断条件独立性的图准则"
+    algorithm: "路径阻塞检查"
+
+# 8.3 马尔可夫随机场
+markov_random_fields:
+  # 无向图表示
+  undirected_graphs:
+    - "节点表示随机变量"
+    - "无向边表示直接依赖"
+    
+  # 团和势函数
+  cliques:
+    definition: "完全连接的子图"
+    potential_functions: "ψ_c(x_c)"
+    
+  # 因子分解
+  factorization:
+    formula: "p(x) = (1/Z) Π ψ_c(x_c)"
+    partition_function: "Z = Σ_x Π ψ_c(x_c)"
+    
+  # 条件随机场
+  conditional_random_fields:
+    linear_chain_crf: true
+    applications: ["序列标注", "命名实体识别"]
+
+# 8.4 图模型推断
+inference:
+  # 精确推断
+  exact_inference:
+    # 变量消除
+    variable_elimination:
+      complexity: "指数级"
+      order_matters: true
+      
+    # 信念传播
+    belief_propagation:
+      sum_product: "边际概率"
+      max_product: "最大后验"
+      
+    # 联结树算法
+    junction_tree:
+      steps: ["三角化", "构建联结树", "消息传递"]
+      
+  # 近似推断
+  approximate_inference:
+    # 循环信念传播
+    loopy_belief_propagation:
+      convergence: "不保证"
+      
+    # 采样方法
+    sampling:
+      - "Gibbs采样"
+      - "Metropolis-Hastings"
+      
+    # 变分推断
+    variational:
+      mean_field: true
+
+# 数据生成
+data_generation:
+  # 贝叶斯网络
+  bayesian_network:
+    # 简单链式结构
+    chain:
+      n_nodes: 5
+      n_states: 2
+      
+    # 树结构
+    tree:
+      depth: 3
+      branching_factor: 2
+      
+  # 马尔可夫随机场
+  mrf:
+    # 格子模型
+    grid:
+      width: 10
+      height: 10
+      n_states: 2
+      
+    # Ising模型
+    ising:
+      coupling_strength: 0.5
+      field_strength: 0.1
+
+# 实验设置
+experiments:
+  # 推断比较
+  inference_comparison:
+    methods: ["exact", "loopy_bp", "sampling"]
+    
+  # 学习任务
+  learning:
+    # 参数学习
+    parameter_learning:
+      method: "maximum_likelihood"
+      
+    # 结构学习
+    structure_learning:
+      method: "score_based"  # constraint_based, score_based
+      
+  # 应用示例
+  applications:
+    - "图像去噪"
+    - "文本分类"
+    - "医疗诊断"

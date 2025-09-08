@@ -1,0 +1,118 @@
+# Chapter 9: Mixture Models and EM 混合模型与EM算法
+# 本章介绍混合模型和期望最大化算法
+
+name: "Mixture Models and EM"
+
+# 9.1 K均值聚类
+k_means_clustering:
+  # 算法参数
+  n_clusters: 3
+  max_iterations: 100
+  tolerance: 1e-4
+  init_method: "k-means++"  # random, k-means++
+  
+  # 变体
+  variants:
+    - "标准K均值"
+    - "K-medoids"
+    - "模糊K均值"
+    - "核K均值"
+
+# 9.2 混合高斯模型
+gaussian_mixture_models:
+  # 模型参数
+  n_components: 3
+  covariance_type: "full"  # full, diag, spherical, tied
+  
+  # 初始化
+  initialization:
+    method: "kmeans"  # random, kmeans
+    n_init: 10
+    
+  # 正则化
+  regularization: 1e-6
+
+# 9.3 EM算法
+expectation_maximization:
+  # 算法设置
+  max_iterations: 100
+  tolerance: 1e-3
+  
+  # E步
+  e_step:
+    compute_responsibilities: true
+    
+  # M步
+  m_step:
+    update_parameters: true
+    
+  # 收敛准则
+  convergence:
+    criterion: "log_likelihood"  # log_likelihood, parameters
+    
+  # EM的性质
+  properties:
+    - "保证似然不减"
+    - "收敛到局部最优"
+    - "对初始化敏感"
+
+# 9.4 一般EM算法
+general_em:
+  # 应用领域
+  applications:
+    - "缺失数据"
+    - "隐变量模型"
+    - "混合模型"
+    - "因子分析"
+    
+  # 变体
+  variants:
+    stochastic_em:
+      description: "随机版本"
+      
+    variational_em:
+      description: "变分EM"
+      
+    monte_carlo_em:
+      description: "蒙特卡洛EM"
+
+# 数据生成
+data_generation:
+  # 聚类数据
+  clustering:
+    n_samples: 300
+    n_features: 2
+    n_clusters: 3
+    cluster_std: 0.5
+    
+  # 混合高斯数据
+  mixture:
+    n_samples: 500
+    n_components: 3
+    weights: [0.3, 0.5, 0.2]
+    
+  # 缺失数据
+  missing_data:
+    missing_ratio: 0.2
+    missing_type: "random"  # random, systematic
+
+# 实验设置
+experiments:
+  # K值选择
+  k_selection:
+    k_range: [2, 3, 4, 5, 6]
+    metrics: ["silhouette", "elbow", "gap_statistic"]
+    
+  # 初始化比较
+  initialization_comparison:
+    methods: ["random", "kmeans", "kmeans++"]
+    n_runs: 10
+    
+  # 协方差类型比较
+  covariance_comparison:
+    types: ["full", "diag", "spherical", "tied"]
+    
+  # 收敛分析
+  convergence_analysis:
+    track_likelihood: true
+    plot_iterations: true

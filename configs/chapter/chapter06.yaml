@@ -1,0 +1,128 @@
+# Chapter 6: Kernel Methods 核方法
+# 本章介绍核方法的原理和应用
+
+name: "Kernel Methods"
+
+# 6.1 对偶表示
+dual_representations:
+  # 线性回归的对偶
+  linear_regression_dual:
+    regularization: 0.1
+    
+  # 对偶的优势
+  advantages:
+    - "可以使用核技巧"
+    - "计算复杂度与特征维度无关"
+    - "可以处理无限维特征"
+
+# 6.2 构建核
+constructing_kernels:
+  # 常用核函数
+  kernel_types:
+    linear:
+      formula: "k(x,x') = x^T x'"
+      
+    polynomial:
+      degree: 3
+      c: 1
+      formula: "k(x,x') = (x^T x' + c)^d"
+      
+    gaussian_rbf:
+      gamma: 0.5  # 1/(2*sigma^2)
+      formula: "k(x,x') = exp(-gamma ||x-x'||^2)"
+      
+    laplacian:
+      gamma: 0.5
+      formula: "k(x,x') = exp(-gamma ||x-x'||_1)"
+      
+    sigmoid:
+      alpha: 0.01
+      c: 0
+      formula: "k(x,x') = tanh(alpha x^T x' + c)"
+      
+  # 核的性质
+  kernel_properties:
+    - "对称性: k(x,x') = k(x',x)"
+    - "正定性: Gram矩阵半正定"
+    - "Mercer定理"
+
+# 6.3 径向基函数网络
+radial_basis_function_networks:
+  # RBF网络参数
+  n_centers: 10
+  width: 0.1
+  
+  # 中心选择方法
+  center_selection:
+    method: "kmeans"  # random, kmeans, orthogonal_least_squares
+    
+  # 训练方法
+  training:
+    method: "two_stage"  # two_stage, full_optimization
+    
+  # Nadaraya-Watson模型
+  nadaraya_watson:
+    kernel: "gaussian"
+    bandwidth: 0.1
+
+# 6.4 高斯过程
+gaussian_processes:
+  # 回归
+  regression:
+    # 均值函数
+    mean_function: "zero"  # zero, linear, constant
+    
+    # 协方差函数（核）
+    kernel: "rbf"
+    length_scale: 1.0
+    variance: 1.0
+    
+    # 噪声
+    noise_variance: 0.01
+    
+  # 分类
+  classification:
+    # 似然近似
+    approximation: "laplace"  # laplace, expectation_propagation
+    
+  # 超参数优化
+  hyperparameter_optimization:
+    method: "marginal_likelihood"
+    optimizer: "L-BFGS"
+
+# 数据生成
+data_generation:
+  # 回归数据
+  regression:
+    function: "sinc"  # sinc, step, polynomial
+    n_train: 50
+    n_test: 200
+    noise_std: 0.1
+    x_range: [-10, 10]
+    
+  # 分类数据
+  classification:
+    dataset: "two_moons"  # two_moons, circles, spiral
+    n_samples: 200
+    noise: 0.1
+    
+  # 高维数据
+  high_dimensional:
+    n_features: 100
+    n_informative: 10
+    n_samples: 500
+
+# 实验设置
+experiments:
+  # 核函数比较
+  kernel_comparison:
+    kernels: ["linear", "polynomial", "rbf", "laplacian"]
+    
+  # 参数敏感性分析
+  parameter_sensitivity:
+    param_name: "gamma"
+    param_range: [0.001, 0.01, 0.1, 1.0, 10.0]
+    
+  # 计算复杂度分析
+  complexity_analysis:
+    sample_sizes: [100, 500, 1000, 5000]
