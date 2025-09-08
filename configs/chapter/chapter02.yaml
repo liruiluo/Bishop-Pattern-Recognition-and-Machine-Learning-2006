@@ -1,0 +1,134 @@
+# Chapter 2: Probability Distributions 概率分布
+# 本章深入探讨机器学习中的核心概率分布
+
+name: "Probability Distributions"
+
+# 2.1 二元变量 (Binary Variables)
+binary_variables:
+  # 伯努利分布参数
+  bernoulli:
+    mu_values: [0.1, 0.3, 0.5, 0.7, 0.9]  # 不同的成功概率
+    n_samples: 1000  # 样本数量
+    
+  # 二项分布参数
+  binomial:
+    n_values: [10, 20, 50]  # 试验次数
+    mu: 0.3  # 成功概率
+    n_samples: 1000
+    
+  # 贝塔分布参数（共轭先验）
+  beta:
+    # 不同的(a, b)参数组合
+    param_pairs: 
+      - [0.5, 0.5]  # U形分布
+      - [1, 1]      # 均匀分布
+      - [2, 2]      # 对称钟形
+      - [2, 5]      # 左偏
+      - [5, 2]      # 右偏
+    n_points: 200  # 绘图点数
+    
+  # 贝叶斯推断演示
+  bayesian_inference:
+    true_mu: 0.7  # 真实的成功概率
+    prior_a: 2    # 先验贝塔分布参数a
+    prior_b: 2    # 先验贝塔分布参数b
+    data_sizes: [1, 5, 10, 50, 100]  # 不同数据量
+
+# 2.2 多项式变量 (Multinomial Variables)
+multinomial_variables:
+  # 多项分布参数
+  multinomial:
+    n_trials: 100  # 试验次数
+    probabilities: [0.2, 0.3, 0.5]  # 各类别概率
+    n_samples: 1000
+    
+  # 狄利克雷分布参数（多项分布的共轭先验）
+  dirichlet:
+    # 不同的alpha参数组合
+    alpha_values:
+      - [1, 1, 1]      # 均匀
+      - [10, 10, 10]   # 集中在中心
+      - [0.5, 0.5, 0.5]  # 集中在角落
+      - [2, 5, 10]     # 不对称
+    n_samples: 1000
+
+# 2.3 高斯分布 (The Gaussian Distribution)
+gaussian_distribution:
+  # 一维高斯分布
+  univariate:
+    mean_values: [-2, 0, 2]  # 不同均值
+    variance_values: [0.5, 1, 2]  # 不同方差
+    n_samples: 1000
+    
+  # 多维高斯分布
+  multivariate:
+    dimension: 2  # 维度
+    # 不同的协方差矩阵
+    covariance_types:
+      - "spherical"  # 球形（各向同性）
+      - "diagonal"   # 对角（轴对齐）
+      - "full"       # 完全协方差
+    n_samples: 500
+    
+  # 贝叶斯推断
+  bayesian:
+    true_mean: 0.5  # 真实均值
+    true_variance: 1.0  # 真实方差
+    prior_mean: 0  # 先验均值
+    prior_variance: 2  # 先验方差
+    data_sizes: [1, 5, 10, 50, 100]
+    
+  # 最大似然估计
+  mle:
+    n_samples: [10, 50, 100, 500, 1000]
+    true_mean: 0
+    true_variance: 1
+    
+  # 混合高斯模型预览
+  mixture:
+    n_components: 3  # 成分数量
+    n_samples: 1000
+
+# 2.4 指数族分布 (The Exponential Family)
+exponential_family:
+  # 展示不同指数族成员
+  distributions:
+    - "bernoulli"
+    - "binomial"
+    - "multinomial"
+    - "gaussian"
+    - "poisson"
+    - "exponential"
+    - "gamma"
+    - "beta"
+    
+  # 充分统计量演示
+  sufficient_statistics:
+    n_samples: 100
+    
+  # 共轭先验演示
+  conjugate_priors:
+    show_pairs: true  # 显示共轭对
+
+# 2.5 非参数方法 (Nonparametric Methods)
+nonparametric_methods:
+  # 直方图密度估计
+  histogram:
+    bin_widths: [0.04, 0.08, 0.25]  # 不同的bin宽度
+    n_samples: 1000
+    
+  # 核密度估计 (KDE)
+  kernel_density:
+    kernels: ["gaussian", "epanechnikov", "uniform"]  # 不同核函数
+    bandwidths: [0.05, 0.1, 0.3, 1.0]  # 不同带宽
+    n_samples: 100
+    
+  # K近邻方法
+  knn:
+    k_values: [1, 3, 5, 10, 30]  # 不同的K值
+    n_samples: 200
+    
+  # 比较演示
+  comparison:
+    true_distribution: "mixture"  # 真实分布类型
+    n_samples: 500
