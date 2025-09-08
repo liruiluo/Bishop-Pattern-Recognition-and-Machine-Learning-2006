@@ -1,0 +1,69 @@
+# Chapter 10: Approximate Inference Configuration
+# 近似推理配置
+
+defaults:
+  - _self_
+
+# 变分推理参数
+variational_inference:
+  # 变分贝叶斯高斯混合模型
+  vb_gmm:
+    n_components: 5
+    max_iter: 100
+    tol: 1e-3
+    alpha_0: 1.0  # Dirichlet先验参数
+    beta_0: 1.0   # 精度先验参数
+    nu_0: null    # Wishart自由度（自动设置为维度）
+    W_0: null     # Wishart尺度矩阵（自动设置为单位矩阵）
+    
+  # 变分线性回归
+  vb_linear:
+    alpha_0: 1e-2  # 权重精度先验
+    beta_0: 1e-2   # 噪声精度先验
+    max_iter: 100
+    tol: 1e-4
+    
+  # 均场近似
+  mean_field:
+    max_iter: 50
+    tol: 1e-3
+    
+# 期望传播参数  
+expectation_propagation:
+  # EP分类器
+  ep_classifier:
+    max_iter: 50
+    damping: 0.5  # 阻尼因子防止震荡
+    tol: 1e-3
+    
+  # EP回归
+  ep_regression:
+    max_iter: 50
+    damping: 0.8
+    tol: 1e-3
+    
+# 局部变分方法
+local_variational:
+  # 变分下界方法
+  lower_bound:
+    n_samples: 100  # 蒙特卡罗采样数
+    
+  # Jaakkola-Jordan界
+  jj_bound:
+    xi_init: 1.0  # 初始变分参数
+    max_iter: 20
+    
+# 演示参数
+demo:
+  n_samples: 500
+  n_features: 2
+  random_state: 42
+  noise_level: 0.1
+  
+# 可视化参数
+visualization:
+  figure_size: [15, 10]
+  dpi: 100
+  show_elbo: true  # 显示证据下界
+  show_convergence: true  # 显示收敛曲线
+  n_posterior_samples: 1000  # 后验采样数

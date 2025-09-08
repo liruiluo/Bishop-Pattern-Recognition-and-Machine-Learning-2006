@@ -1,0 +1,68 @@
+# Chapter 13: Sequential Data Configuration
+# 序列数据配置
+
+defaults:
+  - _self_
+
+# 隐马尔可夫模型 (HMM)
+hmm:
+  n_states: 3  # 隐状态数
+  n_observations: 4  # 观测符号数
+  
+  # 算法参数
+  max_iter: 100
+  tol: 1e-3
+  
+  # 初始化方法
+  init_method: 'random'  # random, kmeans, uniform
+  
+  # 平滑参数
+  smoothing: 1e-10  # 避免数值问题
+  
+# 线性动态系统 (卡尔曼滤波)
+kalman_filter:
+  # 系统维度
+  state_dim: 2  # 状态维度
+  obs_dim: 1  # 观测维度
+  
+  # 噪声参数
+  process_noise: 0.01  # 过程噪声方差
+  measurement_noise: 0.1  # 测量噪声方差
+  
+  # 初始状态
+  initial_state_mean: [0, 0]
+  initial_state_cov: 1.0
+  
+# 粒子滤波
+particle_filter:
+  n_particles: 1000  # 粒子数
+  resample_threshold: 0.5  # 重采样阈值（有效样本比例）
+  resample_method: 'systematic'  # systematic, multinomial, stratified
+  
+# 条件随机场 (CRF)
+crf:
+  n_features: 10  # 特征数
+  n_labels: 5  # 标签数
+  
+  # 优化参数
+  optimizer: 'lbfgs'
+  max_iter: 100
+  c1: 0.1  # L1正则化
+  c2: 0.1  # L2正则化
+  
+# 演示参数
+demo:
+  # 序列生成
+  sequence_length: 100  # 序列长度
+  n_sequences: 10  # 序列数量
+  
+  # 数据类型
+  data_type: 'synthetic'  # synthetic, speech, text, financial
+  
+  # 可视化
+  plot_viterbi: true  # 绘制Viterbi路径
+  plot_filtering: true  # 绘制滤波结果
+  plot_smoothing: true  # 绘制平滑结果
+  
+# 随机数设置
+random_state: 42

@@ -1,0 +1,78 @@
+# Chapter 14: Combining Models Configuration
+# 组合模型配置
+
+defaults:
+  - _self_
+
+# 贝叶斯模型平均
+bayesian_averaging:
+  n_models: 5
+  prior_weights: null  # 模型先验权重
+  
+# 委员会方法
+committee:
+  n_members: 10  # 委员会成员数
+  combination_method: 'voting'  # voting, averaging, weighted
+  diversity_method: 'bagging'  # bagging, random_subspace, random_init
+  
+# Boosting
+boosting:
+  # AdaBoost参数
+  adaboost:
+    n_estimators: 50
+    learning_rate: 1.0
+    algorithm: 'SAMME'  # SAMME, SAMME.R
+    
+  # Gradient Boosting参数
+  gradient_boosting:
+    n_estimators: 100
+    learning_rate: 0.1
+    max_depth: 3
+    subsample: 1.0
+    loss: 'deviance'  # deviance, exponential
+    
+# 决策树
+decision_tree:
+  max_depth: 5
+  min_samples_split: 2
+  min_samples_leaf: 1
+  criterion: 'gini'  # gini, entropy
+  
+# 随机森林
+random_forest:
+  n_estimators: 100
+  max_depth: null
+  max_features: 'sqrt'  # sqrt, log2, None
+  bootstrap: true
+  oob_score: true  # Out-of-bag score
+  
+# 混合专家模型
+mixture_of_experts:
+  n_experts: 4
+  gating_network: 'softmax'  # softmax, hierarchical
+  expert_type: 'linear'  # linear, mlp, rbf
+  
+# 堆叠泛化 (Stacking)
+stacking:
+  n_folds: 5  # 交叉验证折数
+  meta_learner: 'linear'  # linear, mlp, svm
+  use_probabilities: true  # 使用概率还是预测
+  
+# 演示参数
+demo:
+  # 数据生成
+  n_samples: 500
+  n_features: 2
+  n_classes: 3
+  noise_level: 0.1
+  
+  # 数据类型
+  data_type: 'moons'  # moons, circles, blobs, classification, regression
+  
+  # 可视化
+  plot_decision_boundary: true
+  plot_training_progress: true
+  plot_model_weights: true
+  
+# 随机数设置
+random_state: 42

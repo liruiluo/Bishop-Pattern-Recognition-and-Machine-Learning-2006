@@ -1,0 +1,100 @@
+# Chapter 12: Continuous Latent Variables Configuration
+# 连续潜变量配置
+
+defaults:
+  - _self_
+
+# 主成分分析 (PCA)
+pca:
+  n_components: 2  # 主成分数量
+  whiten: false  # 是否白化
+  svd_solver: 'auto'  # SVD求解器：auto, full, arpack, randomized
+  
+  # 概率PCA
+  probabilistic:
+    max_iter: 100
+    tol: 1e-3
+    noise_variance_init: 1.0
+    
+  # 核PCA
+  kernel:
+    kernel: 'rbf'  # 核函数类型
+    gamma: 0.1  # RBF核参数
+    n_components: 2
+
+# 因子分析 (FA)
+factor_analysis:
+  n_factors: 2  # 因子数量
+  max_iter: 1000
+  tol: 1e-2
+  noise_variance_init: null  # 噪声方差初始化
+  rotation: null  # 旋转方法：varimax, quartimax
+
+# 独立成分分析 (ICA)
+ica:
+  n_components: 2
+  algorithm: 'fastica'  # 算法：fastica, infomax
+  whiten: true
+  fun: 'logcosh'  # 非高斯性度量：logcosh, exp, cube
+  max_iter: 200
+  tol: 1e-4
+  
+  # FastICA参数
+  fastica:
+    orthogonalization: 'symmetric'  # 正交化方法
+    alpha: 1.0  # logcosh的参数
+
+# 非负矩阵分解 (NMF)
+nmf:
+  n_components: 2
+  init: 'random'  # 初始化：random, nndsvd, nndsvda, nndsvdar
+  solver: 'mu'  # 求解器：cd, mu
+  beta_loss: 'frobenius'  # 损失函数
+  max_iter: 200
+  tol: 1e-4
+  alpha: 0.0  # L2正则化
+  l1_ratio: 0.0  # L1正则化比例
+
+# 潜在语义分析 (LSA)
+lsa:
+  n_components: 2
+  n_features: 1000  # 词汇表大小
+  
+# t-SNE
+tsne:
+  n_components: 2
+  perplexity: 30.0
+  early_exaggeration: 12.0
+  learning_rate: 200.0
+  n_iter: 1000
+  metric: 'euclidean'
+  init: 'random'
+  
+# 自编码器
+autoencoder:
+  encoding_dim: 2  # 编码维度
+  hidden_layers: [16, 8]  # 隐藏层结构
+  activation: 'relu'
+  optimizer: 'adam'
+  loss: 'mse'
+  epochs: 100
+  batch_size: 32
+  
+# 演示参数
+demo:
+  # 数据生成
+  n_samples: 500
+  n_features: 10
+  n_sources: 3  # ICA源信号数
+  noise_level: 0.1
+  
+  # 数据类型
+  data_type: 'synthetic'  # synthetic, images, text
+  
+  # 可视化
+  plot_components: true  # 绘制成分
+  plot_reconstruction: true  # 绘制重构
+  plot_latent_space: true  # 绘制潜在空间
+  
+# 随机数设置
+random_state: 42

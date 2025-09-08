@@ -1,0 +1,86 @@
+# Chapter 11: Sampling Methods Configuration
+# 采样方法配置
+
+defaults:
+  - _self_
+
+# 基础采样方法
+basic_sampling:
+  # 拒绝采样
+  rejection_sampling:
+    proposal: 'uniform'  # 提议分布类型
+    M: 10.0  # 界常数
+    max_attempts: 10000
+    
+  # 重要性采样
+  importance_sampling:
+    n_samples: 1000
+    proposal_variance: 2.0  # 提议分布方差
+    
+  # 采样-重要性-重采样 (SIR)
+  sir:
+    n_particles: 1000
+    resample_threshold: 0.5  # 有效样本比例阈值
+
+# 马尔可夫链蒙特卡罗 (MCMC)
+mcmc:
+  # Metropolis-Hastings
+  metropolis_hastings:
+    n_samples: 10000
+    burn_in: 1000
+    proposal_std: 0.5  # 提议分布标准差
+    thin: 1  # 细化因子
+    
+  # Gibbs采样
+  gibbs_sampling:
+    n_samples: 10000
+    burn_in: 1000
+    thin: 1
+    
+  # Hamiltonian Monte Carlo (HMC)
+  hmc:
+    n_samples: 5000
+    burn_in: 500
+    step_size: 0.01
+    n_leapfrog: 20
+    
+  # NUTS (No-U-Turn Sampler)
+  nuts:
+    n_samples: 5000
+    burn_in: 500
+    target_accept: 0.8
+    max_tree_depth: 10
+
+# 切片采样
+slice_sampling:
+  n_samples: 10000
+  burn_in: 1000
+  width: 2.0  # 初始切片宽度
+  max_steps: 100  # 最大步数
+  
+# 混合蒙特卡罗
+hybrid_mc:
+  n_samples: 5000
+  mass_matrix: null  # 质量矩阵（自动设置）
+  adapt_step_size: true
+  adapt_mass_matrix: true
+  
+# 演示参数
+demo:
+  # 目标分布
+  target_distribution: 'gaussian_mixture'  # 'gaussian', 'gaussian_mixture', 'banana', 'funnel'
+  n_dimensions: 2
+  
+  # 可视化
+  plot_trace: true  # 绘制轨迹图
+  plot_autocorr: true  # 绘制自相关图
+  plot_density: true  # 绘制密度图
+  n_bins: 50  # 直方图bins数
+  
+  # 诊断
+  compute_ess: true  # 计算有效样本大小
+  compute_rhat: true  # 计算R-hat统计量
+  n_chains: 4  # 链数（用于R-hat）
+  
+# 随机数设置
+random_state: 42
