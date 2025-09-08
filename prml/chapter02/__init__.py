@@ -63,6 +63,23 @@ from .gaussian_distribution import (
     demonstrate_mle_convergence
 )
 
+from .exponential_family import (
+    BernoulliExponential,
+    GaussianExponential,
+    MultinomialExponential,
+    demonstrate_conjugate_priors,
+    demonstrate_sufficient_statistics,
+    visualize_exponential_family_relationships
+)
+
+from .nonparametric_methods import (
+    HistogramDensityEstimator,
+    KernelDensityEstimator,
+    KNearestNeighborsDensity,
+    compare_density_estimators,
+    demonstrate_bandwidth_selection
+)
+
 
 def run_chapter02(cfg: DictConfig) -> None:
     """
@@ -152,10 +169,54 @@ def run_chapter02(cfg: DictConfig) -> None:
         show_plot=cfg.visualization.show_plots
     )
     
+    # 2.4 指数族分布
+    print("\n" + "-"*60)
+    print("2.4 指数族分布 (The Exponential Family)")
+    print("-"*60)
+    
+    # 演示伯努利分布的指数族形式
+    bernoulli_exp = BernoulliExponential()
+    bernoulli_exp.demonstrate()
+    
+    # 演示高斯分布的指数族形式
+    gaussian_exp = GaussianExponential()
+    gaussian_exp.demonstrate()
+    
+    # 演示多项分布与softmax的关系
+    multinomial_exp = MultinomialExponential(K=3)
+    multinomial_exp.demonstrate()
+    
+    # 演示共轭先验
+    demonstrate_conjugate_priors()
+    
+    # 演示充分统计量
+    demonstrate_sufficient_statistics()
+    
+    # 展示指数族分布关系
+    visualize_exponential_family_relationships()
+    
+    # 2.5 非参数方法
+    print("\n" + "-"*60)
+    print("2.5 非参数方法 (Nonparametric Methods)")
+    print("-"*60)
+    
+    # 比较不同的密度估计方法
+    compare_density_estimators(
+        true_distribution='mixture',
+        n_samples=cfg.chapter.nonparametric_methods.comparison.n_samples,
+        show_plot=cfg.visualization.show_plots
+    )
+    
+    # 演示带宽选择的重要性
+    if cfg.visualization.show_plots:
+        demonstrate_bandwidth_selection()
+    
     print("\n" + "="*80)
     print("第2章演示完成！")
     print("="*80)
     print("\n关键要点：")
     print("1. 共轭先验使贝叶斯推断变得简单")
     print("2. 高斯分布在机器学习中无处不在")
-    print("3. 理解这些分布对于深入学习至关重要")
+    print("3. 指数族提供了统一的框架理解各种分布")
+    print("4. 非参数方法不假设特定分布形式，更加灵活")
+    print("5. 理解这些分布对于深入学习至关重要")

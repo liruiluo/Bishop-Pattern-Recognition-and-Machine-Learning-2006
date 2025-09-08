@@ -1,0 +1,149 @@
+# Chapter 5: Neural Networks 神经网络
+# 本章介绍前馈神经网络和反向传播算法
+
+name: "Neural Networks"
+
+# 5.1 前馈网络函数
+feed_forward_network:
+  # 网络架构
+  architecture:
+    input_dim: 2
+    hidden_layers: [5, 3]  # 隐藏层大小
+    output_dim: 1
+    
+  # 激活函数
+  activation:
+    hidden: "tanh"  # sigmoid, tanh, relu
+    output: "sigmoid"  # sigmoid, softmax, linear
+    
+  # 权重初始化
+  weight_initialization:
+    method: "xavier"  # random, xavier, he
+    scale: 0.1
+
+# 5.2 网络训练
+network_training:
+  # 损失函数
+  loss_function: "mse"  # mse, cross_entropy
+  
+  # 优化器
+  optimizer:
+    type: "sgd"  # sgd, momentum, adam
+    learning_rate: 0.1
+    momentum: 0.9
+    
+  # 训练参数
+  batch_size: 32
+  epochs: 100
+  
+  # 正则化
+  regularization:
+    l2: 0.001
+    dropout: 0.0
+
+# 5.3 误差反向传播
+error_backpropagation:
+  # 梯度检查
+  gradient_check:
+    enabled: true
+    epsilon: 1e-7
+    tolerance: 1e-5
+    
+  # 可视化
+  visualize_gradients: true
+  visualize_activations: true
+
+# 5.4 Hessian矩阵
+hessian:
+  # 二阶方法
+  second_order:
+    compute_hessian: false  # 计算量大
+    
+  # 对角近似
+  diagonal_approximation: true
+  
+  # 逆对角Hessian
+  inverse_diagonal: true
+
+# 5.5 正则化
+regularization_neural_networks:
+  # 早停
+  early_stopping:
+    patience: 10
+    monitor: "val_loss"
+    
+  # 权重衰减
+  weight_decay: 0.001
+  
+  # Dropout
+  dropout:
+    rate: 0.5
+    training_only: true
+    
+  # 数据增强
+  data_augmentation:
+    enabled: false
+    
+  # 贝叶斯正则化
+  bayesian:
+    enabled: false
+    alpha: 1.0
+    beta: 1.0
+
+# 5.6 混合密度网络
+mixture_density_networks:
+  # MDN参数
+  n_components: 3  # 混合成分数
+  
+  # 网络结构
+  hidden_units: [20, 20]
+  
+  # 输出
+  output_params: ["pi", "mu", "sigma"]  # 混合系数、均值、标准差
+
+# 5.7 贝叶斯神经网络
+bayesian_neural_networks:
+  # 变分推断
+  variational_inference:
+    enabled: false
+    
+  # 拉普拉斯近似
+  laplace_approximation:
+    enabled: false
+    
+  # MC Dropout
+  mc_dropout:
+    enabled: true
+    n_samples: 10
+
+# 数据生成
+data_generation:
+  # 回归任务
+  regression:
+    function: "sinusoidal"  # sinusoidal, polynomial
+    n_samples: 200
+    noise_std: 0.3
+    
+  # 分类任务
+  classification:
+    dataset: "two_spirals"  # two_spirals, circles, moons
+    n_samples: 500
+    noise: 0.1
+    
+  # 验证集比例
+  validation_split: 0.2
+
+# 实验设置
+experiments:
+  # 比较不同激活函数
+  compare_activations:
+    functions: ["sigmoid", "tanh", "relu"]
+    
+  # 比较不同优化器
+  compare_optimizers:
+    optimizers: ["sgd", "momentum", "adam"]
+    
+  # 过拟合演示
+  overfitting_demo:
+    hidden_units: [100]  # 大网络
+    n_train_samples: 20  # 少数据

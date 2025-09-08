@@ -1,0 +1,135 @@
+# Chapter 4: Linear Models for Classification 分类的线性模型
+# 本章介绍分类任务的线性方法
+
+name: "Linear Models for Classification"
+
+# 4.1 判别函数
+discriminant_functions:
+  # 二分类
+  two_classes:
+    # 线性判别函数
+    linear:
+      weight_init: "random"  # random, zeros
+      bias: true
+    
+    # 多个二分类器
+    multiple_classes:
+      method: "one_vs_rest"  # one_vs_rest, one_vs_one
+  
+  # 多分类的判别函数
+  multi_class:
+    n_classes: 3
+    # 决策区域可视化
+    decision_regions:
+      resolution: 100
+      x_min: -6
+      x_max: 6
+      y_min: -6
+      y_max: 6
+
+# 4.2 概率生成模型
+probabilistic_generative:
+  # 连续输入
+  continuous_inputs:
+    # 高斯类条件密度
+    gaussian_class_conditional:
+      shared_covariance: false  # 是否共享协方差
+    
+    # 最大似然解
+    maximum_likelihood:
+      regularization: 0.01  # 协方差正则化
+  
+  # 离散特征
+  discrete_features:
+    # 朴素贝叶斯
+    naive_bayes:
+      smoothing: 1.0  # 拉普拉斯平滑
+  
+  # 指数族
+  exponential_family:
+    link_function: "logit"  # logit, probit
+
+# 4.3 概率判别模型
+probabilistic_discriminative:
+  # 固定基函数
+  fixed_basis_functions:
+    type: "gaussian"  # polynomial, gaussian
+    n_basis: 10
+  
+  # 逻辑回归
+  logistic_regression:
+    # 迭代重加权最小二乘（IRLS）
+    irls:
+      max_iterations: 100
+      tolerance: 1e-4
+    
+    # 多类逻辑回归
+    multiclass:
+      method: "softmax"
+  
+  # probit回归
+  probit_regression:
+    approximation: "laplace"  # laplace, variational
+
+# 4.4 拉普拉斯近似
+laplace_approximation:
+  # 模型比较
+  model_comparison:
+    models: [1, 2, 3, 4, 5]  # 不同复杂度的模型
+  
+  # 后验近似
+  posterior_approximation:
+    method: "taylor"  # 泰勒展开
+    order: 2  # 展开阶数
+
+# 4.5 贝叶斯逻辑回归
+bayesian_logistic:
+  # 拉普拉斯近似
+  laplace:
+    max_iterations: 10
+    tolerance: 1e-3
+  
+  # 预测分布
+  predictive_distribution:
+    n_samples: 100  # MC采样数
+    
+  # 变分推断（可选）
+  variational:
+    enabled: false
+    max_iterations: 100
+
+# 数据生成
+data_generation:
+  # 二分类数据
+  binary_classification:
+    n_samples_per_class: 100
+    class_means: [[-2, 0], [2, 0]]
+    class_covariances: [[[1, 0.5], [0.5, 1]], [[1, -0.5], [-0.5, 1]]]
+    
+  # 多分类数据
+  multi_classification:
+    n_classes: 3
+    n_samples_per_class: 50
+    n_features: 2
+    cluster_std: 1.0
+    
+  # 线性可分数据
+  linearly_separable:
+    n_samples: 200
+    noise: 0.1
+    margin: 1.0
+
+# 优化设置
+optimization:
+  # 梯度下降
+  gradient_descent:
+    learning_rate: 0.01
+    momentum: 0.9
+    
+  # 牛顿法
+  newton:
+    regularization: 1e-6  # Hessian正则化
+    
+  # 共轭梯度
+  conjugate_gradient:
+    max_iterations: 100
